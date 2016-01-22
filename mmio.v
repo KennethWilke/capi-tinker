@@ -23,8 +23,8 @@ module mmio (
           ah_mmdata <= 'h0000000100010010;
         end
         'h8: begin
-         ah_mmack <= 1;
-         ah_mmdata <= 'h0000000000000001;
+          ah_mmack <= 1;
+          ah_mmdata <= 'h0000000000000001;
         end
         'hA: begin
           ah_mmack <= 1;
