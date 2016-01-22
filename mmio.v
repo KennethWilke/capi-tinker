@@ -17,34 +17,34 @@ module mmio (
   always @ (posedge ha_pclock) begin
     if(ha_mmval & ha_mmcfg & ha_mmrnw) begin
       $monitor("AFU decriptor request");
-		case(ha_mmad)
-		  'h0: begin
-		    ah_mmack <= 1;
-			 ah_mmdata <= 'h0000000100010010;
-		  end
-		  'h8: begin
-		    ah_mmack <= 1;
-			 ah_mmdata <= 'h0000000000000001;
-		  end
-		  'hA: begin
-		    ah_mmack <= 1;
-			 ah_mmdata <= 'h0000000000000100;
-		  end
-		  'hE: begin
-		    ah_mmack <= 1;
-			 ah_mmdata <= 'h0100000000000000;
-		  end
-		  default: begin
-		    ah_mmack <= 1;
-			 ah_mmdata <= 'h0000000000000000;
-		  end
-		endcase
-	 end else begin
-	   ah_mmack <= 0;
-	   ah_mmdata <= 0;
-	 end
-	 // Handle parity bit
-	 ah_mmdatapar <= ^ah_mmdata;
+        case(ha_mmad)
+        'h0: begin
+          ah_mmack <= 1;
+          ah_mmdata <= 'h0000000100010010;
+        end
+        'h8: begin
+         ah_mmack <= 1;
+         ah_mmdata <= 'h0000000000000001;
+        end
+        'hA: begin
+          ah_mmack <= 1;
+          ah_mmdata <= 'h0000000000000100;
+        end
+        'hE: begin
+          ah_mmack <= 1;
+          ah_mmdata <= 'h0100000000000000;
+        end
+        default: begin
+          ah_mmack <= 1;
+          ah_mmdata <= 'h0000000000000000;
+        end
+      endcase
+    end else begin
+      ah_mmack <= 0;
+      ah_mmdata <= 0;
+    end
+    // Handle parity bit
+    ah_mmdatapar <= ^ah_mmdata;
   end
-  
+
 endmodule

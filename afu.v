@@ -43,7 +43,7 @@ module afu (
   input  [0:63]  ha_mmdata,      // Write data
   input          ha_mmdatapar,   // Write data parity
   output         ah_mmack,       // Write is complete or Read is valid
-  output  [0:63] ah_mmdata,   // Read data
+  output  [0:63] ah_mmdata,      // Read data
   output         ah_mmdatapar,   // Read data parity
   // Control interface
   input          ha_jval,        // Job valid
@@ -65,8 +65,8 @@ module afu (
 
   shift_register ah_jdone_shift(
     .clock(ha_pclock),
-	 .in(ah_jdone_out),
-	 .out(ah_jdone));
+   .in(ah_jdone_out),
+   .out(ah_jdone));
 
   mmio mmio_handler(
     .ha_pclock(ha_pclock),
@@ -85,46 +85,44 @@ module afu (
   // Set all outputs to 0 (for useful testing defaults)
   assign ah_ctag = 0,
          ah_com = 0,
-			ah_cabt = 0,
-			ah_cea = 0,
-			ah_cch = 0,
-			ah_csize = 0,
-			ah_brlat = 1,
-			ah_brdata = 0,
-			ah_brpar = 0,
-			ah_jerror = 0,
-			ah_cvalid = 0,
-			ah_ctagpar = 0,
-			ah_compar = 0,
-			ah_ceapar = 0,
-			ah_jrunning = 0,
-			ah_jcack = 0,
-			ah_jyield = 0,
-			ah_tbreq = 0,
-			ah_paren = 0;
-		
+         ah_cabt = 0,
+         ah_cea = 0,
+         ah_cch = 0,
+         ah_csize = 0,
+         ah_brlat = 1,
+         ah_brdata = 0,
+         ah_brpar = 0,
+         ah_jerror = 0,
+         ah_cvalid = 0,
+         ah_ctagpar = 0,
+         ah_compar = 0,
+         ah_ceapar = 0,
+         ah_jrunning = 0,
+         ah_jcack = 0,
+         ah_jyield = 0,
+         ah_tbreq = 0,
+         ah_paren = 0;
+
   // Handle job logic
   always @ (posedge ha_pclock) begin
     if(ha_jval) begin
-	   case(ha_jcom)
-		  'h80: begin
-		    $monitor("Reset");
-			 ah_jdone_out <= 'b1;
-		  end
-		  'h90: begin
-		    $monitor("Start");
-		  end
-		  default: begin 
-		    $monitor("Invalid command given: %h", ha_jcom);
-			 ah_jdone_out <= 'b0;
-		  end
-		  endcase
-	   $monitor("Reset");
+     case(ha_jcom)
+      'h80: begin
+        $monitor("Reset");
+       ah_jdone_out <= 'b1;
+      end
+      'h90: begin
+        $monitor("Start");
+      end
+      default: begin 
+        $monitor("Invalid command given: %h", ha_jcom);
+       ah_jdone_out <= 'b0;
+      end
+      endcase
+     $monitor("Reset");
     end else begin
-	   ah_jdone_out <= 'b0;
-	 end
+     ah_jdone_out <= 'b0;
+   end
   end
-  
 
-  
 endmodule
