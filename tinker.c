@@ -4,7 +4,7 @@
 int main(int argc, char *argv[])
 {
 	struct cxl_afu_h *afu;
-	__u64 wed = 0xDEADBEEF;
+	__u64 wed = 0x48656c6c6f414655;
 
 	afu = cxl_afu_open_dev("/dev/cxl/afu0.0d");
 	if(!afu)
@@ -14,6 +14,8 @@ int main(int argc, char *argv[])
 	}
 
 	cxl_afu_attach(afu, (__u64)wed);
+
+	sleep(120);
 
 	cxl_afu_free(afu);
 
