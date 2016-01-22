@@ -78,8 +78,8 @@ module afu (
     .ha_mmadpar(ha_mmadpar),
     .ha_mmdata(ha_mmdata),
     .ha_mmdatapar(ha_mmdatapar),
-    .ah_mmack_out(ah_mmack),
-    .ah_mmdata_out(ah_mmdata),
+    .ah_mmack(ah_mmack),
+    .ah_mmdata(ah_mmdata),
     .ah_mmdatapar(ah_mmdatapar));
 
   // Set all outputs to 0 (for useful testing defaults)
