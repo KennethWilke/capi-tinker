@@ -1,0 +1,10 @@
+capi-tinker.qpf
+db/
+incremental_db/
+output_files/
+simulation/modelsim/modelsim.ini
+simulation/modelsim/msim_transcript
+simulation/modelsim/rtl_work/
+simulation/modelsim/top_run_msim_rtl_verilog.do
+top.qsf
+top_nativelink_simulation.rpt

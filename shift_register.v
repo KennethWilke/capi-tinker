@@ -7,8 +7,9 @@ module shift_register(
   input clock;
   input [0:width-1] in;
   output reg [0:width-1] out;
-  
-  always @ (posedge clock) begin
+
+  always @ (posedge clock)
+  begin
     out <= in;
   end
 endmodule
