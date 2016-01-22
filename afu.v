@@ -51,7 +51,7 @@ module afu (
   input          ha_jcompar,     // Job command parity
   input  [0:63]  ha_jea,         // Job address
   input          ha_jeapar,      // Job address parity
-  output         ah_jrunning,    // Job running
+  output reg     ah_jrunning,    // Job running
   output         ah_jdone,       // Job done
   output         ah_jcack,       // Acknowledge completion of LLCMD
   output [0:63]  ah_jerror,      // Job error
@@ -97,7 +97,6 @@ module afu (
          ah_ctagpar = 0,
          ah_compar = 0,
          ah_ceapar = 0,
-         ah_jrunning = 0,
          ah_jcack = 0,
          ah_jyield = 0,
          ah_tbreq = 0,
@@ -111,10 +110,12 @@ module afu (
       case(ha_jcom)
         'h80: begin
           $monitor("Reset");
+          ah_jrunning <= 'b0;
           ah_jdone_out <= 'b1;
         end
         'h90: begin
           $monitor("Start");
+          ah_jrunning <= 'b1;
         end
         default: begin
           $monitor("Invalid command given: %h", ha_jcom);

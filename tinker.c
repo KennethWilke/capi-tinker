@@ -13,10 +13,12 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	cxl_afu_attach(afu, (__u64)wed);
+	cxl_afu_attach(afu, wed);
 
+	printf("Waiting for 2 minutes\n");
 	sleep(120);
 
+	printf("releasing AFU\n");
 	cxl_afu_free(afu);
 
 	return 0;

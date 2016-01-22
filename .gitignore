@@ -11,4 +11,6 @@ simulation/modelsim/vsim.wlf
 top.qsf
 top_nativelink_simulation.rpt
 tinker
-
+simulation/modelsim/top.sft
+simulation/modelsim/top.vho
+simulation/modelsim/top_modelsim.xrf
