@@ -17,7 +17,7 @@ void* random_data(__u64 size)
 {
 	__u64 bytes_remaining = size;
 	long int *offset;
-	void *new = malloc(size);
+	void *new = aligned_alloc(ALLOCATION_ALIGNMENT, size);
 
 	if(size % sizeof(long int))
 	{
