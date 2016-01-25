@@ -2,7 +2,7 @@ module parity_generator (
   input clock,
   input enable,
   input reset,
-  input  [0:63]  wed,
+  input [0:63] wed,
   // Command interface
   output reg        ah_cvalid,      // Command valid
   output reg [0:7]  ah_ctag,        // Command tag
