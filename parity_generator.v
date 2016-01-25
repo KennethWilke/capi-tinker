@@ -43,7 +43,7 @@ module parity_generator (
   reg wed_received;
 
   assign ah_cabt = 3'b000,
-         ah_csize = 64,
+         ah_csize = 128,
          ah_cch = 0,
          ah_brlat = 1,
          // Parity bits
