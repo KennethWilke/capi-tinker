@@ -62,6 +62,7 @@ module afu (
 );
 
   reg ah_jdone_out;
+  reg we_reset;
 
   shift_register ah_jdone_shift(
     .clock(ha_pclock),
@@ -82,21 +83,44 @@ module afu (
     .ah_mmdata_out(ah_mmdata),
     .ah_mmdatapar(ah_mmdatapar));
 
-  // Set all outputs to 0 (for useful testing defaults)
-  assign ah_ctag = 0,
-         ah_com = 0,
-         ah_cabt = 0,
-         ah_cea = 0,
-         ah_cch = 0,
-         ah_csize = 0,
-         ah_brlat = 1,
-         ah_brdata = 0,
-         ah_brpar = 0,
-         ah_jerror = 0,
-         ah_cvalid = 0,
-         ah_ctagpar = 0,
-         ah_compar = 0,
-         ah_ceapar = 0,
+  parity_generator work_element(
+    .clock(ha_pclock),
+    .enable(ah_jrunning),
+    .reset(we_reset),
+    .wed(ha_jea),
+    .ah_cvalid(ah_cvalid),
+    .ah_ctag(ah_ctag),
+    .ah_ctagpar(ah_ctagpar),
+    .ah_com(ah_com),
+    .ah_compar(ah_compar),
+    .ah_cabt(ah_cabt),
+    .ah_cea(ah_cea),
+    .ah_ceapar(ah_ceapar),
+    .ah_cch(ah_cch),
+    .ah_csize(ah_csize),
+    .ha_croom(ha_croom),
+    .ha_brvalid(ha_brvalid),
+    .ha_brtag(ha_brtag),
+    .ha_brtagpar(ha_brtagpar),
+    .ha_brad(ha_brad),
+    .ah_brlat(ah_brlat),
+    .ah_brdata(ah_brdata),
+    .ah_brpar(ah_brpar),
+    .ha_bwvalid(ha_bwvalid),
+    .ha_bwtag(ha_bwtag),
+    .ha_bwtagpar(ha_bwtagpar),
+    .ha_bwad(ha_bwad),
+    .ha_bwdata(ha_bwdata),
+    .ha_bwpar(ha_bwpar),
+    .ha_rvalid(ha_rvalid),
+    .ha_rtag(ha_rtag),
+    .ha_rtagpar(ha_rtagpar),
+    .ha_response(ha_response),
+    .ha_rcredits(ha_rcredits),
+    .ha_rcachestate(ha_rcachestate),
+    .ha_rcachepos(ha_rcachepos));
+
+  assign ah_jerror = 0,
          ah_jcack = 0,
          ah_jyield = 0,
          ah_tbreq = 0,
@@ -109,21 +133,24 @@ module afu (
     begin
       case(ha_jcom)
         'h80: begin
-          $monitor("Reset");
-          ah_jrunning <= 'b0;
-          ah_jdone_out <= 'b1;
+          $display("Reset");
+          ah_jrunning <= 0;
+          ah_jdone_out <= 1;
+          we_reset <= 1;
         end
         'h90: begin
-          $monitor("Start");
-          ah_jrunning <= 'b1;
+          $display("Start");
+          ah_jrunning <= 1;
+          we_reset <= 0;
         end
         default: begin
-          $monitor("Invalid command given: %h", ha_jcom);
-          ah_jdone_out <= 'b0;
+          $display("Invalid command given: %h", ha_jcom);
+          ah_jdone_out <= 0;
+          we_reset <= 0;
         end
       endcase
     end else begin
-      ah_jdone_out <= 'b0;
+      ah_jdone_out <= 0;
     end
   end
 

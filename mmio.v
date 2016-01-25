@@ -31,27 +31,27 @@ module mmio (
   begin
     if(ha_mmval & ha_mmcfg & ha_mmrnw)
     begin
-      $monitor("AFU decriptor request");
+      $display("AFU decriptor request");
       case(ha_mmad)
         'h0: begin
           ah_mmack <= 1;
-          ah_mmdata <= 'h0000000100010010;
+          ah_mmdata <= 64'h0000000100010010;
         end
         'h8: begin
           ah_mmack <= 1;
-          ah_mmdata <= 'h0000000000000001;
+          ah_mmdata <= 64'h0000000000000001;
         end
         'hA: begin
           ah_mmack <= 1;
-          ah_mmdata <= 'h0000000000000100;
+          ah_mmdata <= 64'h0000000000000100;
         end
         'hE: begin
           ah_mmack <= 1;
-          ah_mmdata <= 'h0100000000000000;
+          ah_mmdata <= 64'h0100000000000000;
         end
         default: begin
           ah_mmack <= 1;
-          ah_mmdata <= 'h0000000000000000;
+          ah_mmdata <= 64'h0000000000000000;
         end
       endcase
     end else begin

@@ -1,4 +1,3 @@
 vsim work.top
-do watch_job_interface.do
-do watch_mmio_interface.do
+do watch_all_interfaces.do
 run 136
