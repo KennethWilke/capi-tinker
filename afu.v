@@ -124,7 +124,7 @@ module afu (
          ah_jcack = 0,
          ah_jyield = 0,
          ah_tbreq = 0,
-         ah_paren = 0;
+         ah_paren = 1;
 
   // Handle job logic
   always @ (posedge ha_pclock)

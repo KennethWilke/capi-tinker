@@ -11,7 +11,7 @@ module mmio (
   input         ha_mmdatapar,  // Write data parity
   output        ah_mmack_out,  // Write is complete or Read is valid
   output [0:63] ah_mmdata_out, // Read data
-  output reg    ah_mmdatapar); // Read data parity
+  output        ah_mmdatapar); // Read data parity
 
   reg ah_mmack;
   reg [0:63] ah_mmdata;
@@ -25,6 +25,8 @@ module mmio (
     .clock(ha_pclock),
     .in(ah_mmdata),
     .out(ah_mmdata_out));
+
+  assign ah_mmdatapar = ~^ah_mmdata_out;
 
   // Handle MMIO AFU requests
   always @ (posedge ha_pclock)
@@ -58,8 +60,6 @@ module mmio (
       ah_mmack <= 0;
       ah_mmdata <= 0;
     end
-    // Handle parity bit
-    ah_mmdatapar <= ^ah_mmdata_out;
   end
 
 endmodule

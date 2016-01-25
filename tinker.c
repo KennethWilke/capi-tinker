@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	cxl_afu_attach(afu, (__u64)&example);
+	cxl_afu_attach(afu, (__u64)example);
 
 	while(!example->done){
 		sleep(1);

@@ -8,7 +8,7 @@ module parity_generator (
   output reg [0:7]  ah_ctag,        // Command tag
   output            ah_ctagpar,     // Command tag parity
   output reg [0:12] ah_com,         // Command code
-  output           ah_compar,      // Command code parity
+  output            ah_compar,      // Command code parity
   output [0:2]      ah_cabt,        // Command ABT
   output reg [0:63] ah_cea,         // Command address
   output            ah_ceapar,      // Command address parity
@@ -43,13 +43,13 @@ module parity_generator (
   reg wed_received;
 
   assign ah_cabt = 3'b000,
-         ah_csize = 128,
+         ah_csize = 64,
          ah_cch = 0,
          ah_brlat = 1,
          // Parity bits
-         ah_compar = ^ah_com,
-         ah_ceapar = ^ah_cea,
-         ah_ctagpar = ^ah_ctag;
+         ah_compar = ~^ah_com,
+         ah_ceapar = ~^ah_cea,
+         ah_ctagpar = ~^ah_ctag;
 
   // Runtime logic
   always @ (posedge clock)
