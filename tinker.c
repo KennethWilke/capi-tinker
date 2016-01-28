@@ -49,6 +49,7 @@ parity_request* example_parity_request(void)
 {
 	parity_request *new = aligned_alloc(ALLOCATION_ALIGNMENT, sizeof(*new));
 
+	new->size = STRIPE_SIZE;
 	new->stripe1 = random_data(STRIPE_SIZE);
 	new->stripe2 = random_data(STRIPE_SIZE);
 	new->parity = aligned_alloc(ALLOCATION_ALIGNMENT, STRIPE_SIZE);
@@ -64,8 +65,10 @@ int main(int argc, char *argv[])
 	parity_request *example = example_parity_request();
 
 	printf("example: %p\n", example);
+	printf("example->size: %llu\n", example->size);
 	printf("example->stripe1: %p\n", example->stripe1);
 	printf("example->stripe2: %p\n", example->stripe2);
+	printf("example->parity: %p\n", example->parity);
 
 	afu = cxl_afu_open_dev("/dev/cxl/afu0.0d");
 	if(!afu)

@@ -6,7 +6,7 @@ simulation/modelsim/modelsim.ini
 simulation/modelsim/msim_transcript
 simulation/modelsim/rtl_work/
 simulation/modelsim/top_run_msim_rtl_verilog.do*
-simulation/modelsim/wlftF*
+simulation/modelsim/wlft*
 simulation/modelsim/vsim.wlf
 top.qsf
 top_nativelink_simulation.rpt
